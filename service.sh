@@ -6,6 +6,7 @@ function kill_background_apps {
         pm disable-user --user 0 $str
     done
     pm disable-user --user 0 com.google.android.gms
+    CurrentApp=$(echo $CurrentApp | cut -d " " -f2)
     am start -n $CurrentApp/$CurrentApp.MainActivity
 }
 
