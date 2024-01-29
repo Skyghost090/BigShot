@@ -2,7 +2,6 @@ function kill_background_apps {
     CurrentApp=$(dumpsys window | grep mCurrentFocus | tr -d '}' | tr -d '{' | tr -d '=' | cut -c33- | rev | cut -d '/' -f2-2 | rev)
     UserPackagesList=$(pm list packages -3 | cut -c9- | tr "\n" " ")
     ParableApps=$(echo $UserPackagesList | sed "s/$(echo $CurrentApp | cut -d ' ' -f2)/ /g")
-    ParableApps=$(echo $UserPackagesList | sed "s/$(echo $CurrentApp | cut -d ' ' -f1)/ /g")
     for str in ${ParableApps[@]}; do
         pm disable-user --user 0 $str
     done
