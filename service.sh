@@ -6,15 +6,12 @@ function kill_background_apps {
         pm disable-user --user 0 $str
     done
     pm disable-user --user 0 com.google.android.gms
-    CurrentApp=$(echo $CurrentApp | cut -d " " -f2)
-    am start -n $CurrentApp/$CurrentApp.MainActivity
 }
 
 function open_background_apps {
     CurrentApp=$(dumpsys window | grep mCurrentFocus | tr -d '}' | tr -d '{' | tr -d '=' | cut -c33- | rev | cut -d '/' -f2-2 | rev)
     UserPackagesList=$(pm list packages -3 | cut -c9- | tr "\n" " ")
-    ParableApps=$(echo $UserPackagesList | sed "s/$CurrentApp/ /g")
-    for str in ${ParableApps[@]}; do
+    for str in ${UserPackagesList[@]}; do
         pm enable $str
     done
     pm enable com.google.android.gms
