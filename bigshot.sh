@@ -35,7 +35,6 @@ function disable {
 }
 
 case $1 in
-    "performace") performace ;;
     "eficient") eficient ;;
     "disable") disable ;;
     "*") echo "Unknown Command" ;;
