@@ -9,4 +9,5 @@
 
 * Android 10 or superior
 * Works on any rom
-* And frees up a lot of RAM
+* Frees up a lot of RAM
+* And before running, move the fkm to priv app
