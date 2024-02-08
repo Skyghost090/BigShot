@@ -12,3 +12,4 @@
 * Frees up a lot of RAM
 * And before running, move the fkm to priv app
 * When you click to open you have a maximum of 5 minutes to open the app
+* When adding enable.sh and disable.sh you must also add bigshot.sh
