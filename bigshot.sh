@@ -45,8 +45,8 @@ function performace {
 
 function eficient {
     kill_background_apps
-    wm size $(($(wm size | awk '{print $3}' | cut -dx -f1) / 3 * 2))x$(($(wm size | awk '{print $3}' | cut -dx -f2) / 3 * 2))
-    wm density $(($(wm density | sed -n '1p' | cut -c19-) / 3 * 2))
+    wm size $(($(wm size | awk '{print $3}' | cut -dx -f1) / 3))x$(($(wm size | awk '{print $3}' | cut -dx -f2) / 3))
+    wm density $(($(wm density | sed -n '1p' | cut -c19-) / 3))
 }
 
 function disable {
