@@ -1,32 +1,20 @@
-param2=$2
-param3=$3
-param4=$4
-param5=$5
-param6=$6
-param7=$7
 function kill_background_apps {
-    echo $param2
-
-    if [[ $param2 = "" ]]; then
-        echo "Please type id from the app"
-        exit 3
-    fi
-
     UserPackagesList=$(pm list packages -3 | cut -c9- | tr "\n" " ")
+    FocusedApp=$(dumpsys activity activities | grep topResumedActivity=ActivityRecord | tr ={/ ' ' | awk '{print $5}')
 
     for str in ${UserPackagesList[@]}; do
-        pm disable-user --user 0 $str
+        if [[ "$str" == "com.bigshot" ]]; then
+            echo "Bigshot App..."
+        else
+            if [[ "$str" == "$FocusedApp" ]]; then
+                echo "Focused App..."
+            else
+                pm disable-user --user 0 $str
+            fi
+        fi
     done
 
     pm disable-user --user 0 com.google.android.gms
-    pm enable $param2
-    pm enable $param3
-    pm enable $param2
-    pm enable $param3
-    pm enable $param4
-    pm enable $param5
-    pm enable $param6
-    pm enable $param7
 }
 
 function open_background_apps {
@@ -39,18 +27,19 @@ function open_background_apps {
     pm enable com.google.android.gms
 }
 
-function performace {
-    kill_background_apps
-}
-
 function eficient {
+    sleep 10
     kill_background_apps
-    wm size $(($(wm size | awk '{print $3}' | cut -dx -f1) / 3))x$(($(wm size | awk '{print $3}' | cut -dx -f2) / 3))
-    wm density $(($(wm density | sed -n '1p' | cut -c19-) / 3))
+    su -c stop thermal-engine
+    su -c stop thermald
+    wm size $(($(wm size | awk '{print $3}' | cut -dx -f1) / 3 * 2))x$(($(wm size | awk '{print $3}' | cut -dx -f2) / 3 * 2))
+    wm density $(($(wm density | sed -n '1p' | cut -c19-) / 3 * 2))
 }
 
 function disable {
     open_background_apps
+    su -c start thermal-engine
+    su -c start thermald
     wm size reset
     wm density reset
 }
