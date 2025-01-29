@@ -13,3 +13,7 @@ sh /storage/emulated/0/bigshot enable
 ```bash
 sh /storage/emulated/0/bigshot disable
 ```
+
+## License
+
+This project is licensed under the BSD License - see the [LICENSE](LICENSE) file for details.
